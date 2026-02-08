@@ -2,8 +2,71 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <RootNamespace>DapperScaffolding</RootNamespace>
+    <RootNamespace>BertoSoftware</RootNamespace>
     <TargetFramework>net10.0</TargetFramework>
+    <OptionStrict>On</OptionStrict>
+    <Title>Dapper Scaffolding</Title>
+    <Description>A simple tool for scaffolding database to Dapper model</Description>
+    <Copyright>2026 Roberto Faccani</Copyright>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <PackageId>$(RootNamespace).$(AssemblyName)</PackageId>
+    <AssemblyName>$(RootNamespace).$(MSBuildProjectName)</AssemblyName>
+    <Version>0.1.0-alpha1</Version>
+    <PackageProjectUrl>https://www.nuget.org/packages/BertoSoftware.DapperAuditContext</PackageProjectUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageTags>dapper;scaffolding</PackageTags>
+    <RepositoryUrl>https://github.com/berto82/DapperScaffolding</RepositoryUrl>
+    <IncludeSymbols>True</IncludeSymbols>
+    <Authors>Roberto Faccani</Authors>
+    <Company>Roberto Faccani</Company>
+    <RepositoryType>git</RepositoryType>
+    <FileVersion>0.1.0.0</FileVersion>
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PackageIcon>DapperSaffolding_icon.png</PackageIcon>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>dapper-scaffolding</ToolCommandName>
+    <ApplicationIcon>DapperSaffolding_icon.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="DapperSaffolding_icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Providers\MySql\Script\MySql.TableToModelCS.sql" />
+    <EmbeddedResource Include="Providers\MySql\Script\MySql.TableToModelVB.sql" />
+    <EmbeddedResource Include="Providers\SQLServer\Script\MSSQL.TableToModelCS.sql" />
+    <EmbeddedResource Include="Providers\SQLServer\Script\MSSQL.TableToModelVB.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\..\Desktop\DapperSaffolding_icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="dapper" Version="2.1.66" />
+    <PackageReference Include="Figgle" Version="0.6.5" />
+    <PackageReference Include="Figgle.Fonts" Version="0.6.5" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.4" />
+    <PackageReference Include="microsoft.extensions.Configuration" Version="10.0.2" />
+    <PackageReference Include="microsoft.extensions.Configuration.Json" Version="10.0.2" />
+    <PackageReference Include="MySqlConnector" Version="2.5.0" />
+    <PackageReference Include="Spectre.Console" Version="0.54.0" />
+    <PackageReference Include="system.commandline" Version="2.0.2" />
+  </ItemGroup>
 
 </Project>

@@ -1,0 +1,28 @@
+{
+  "profiles": {
+    "DapperScaffolding": {
+      "commandName": "Project",
+      "commandLineArgs": "ds scaffold -prj \"C:\\Users\\rfacc\\source\\repos\\DapperScaffolding\\DapperScaffoldingExample\\DapperScaffoldingExample.vbproj\" -prov SQLServer -lang CSharp -out Model"
+    },
+    "WSL": {
+      "commandName": "WSL2",
+      "distributionName": ""
+    },
+    "MSSQL - C#": {
+      "commandName": "Project",
+      "commandLineArgs": "ds scaffold -prj \"C:\\Users\\rfacc\\source\\repos\\DapperScaffolding\\DapperScaffoldingExample\\DapperScaffoldingExample.vbproj\" -prov SQLServer -lang CSharp -out Model -del true"
+    },
+    "MySQL - C#": {
+      "commandName": "Project",
+      "commandLineArgs": "ds scaffold -prj \"C:\\Users\\rfacc\\source\\repos\\DapperScaffolding\\DapperScaffoldingExample\\DapperScaffoldingExample.vbproj\" -prov MySql -lang CSharp -out Model -del true"
+    },
+    "MSSQL - VB.Net": {
+      "commandName": "Project",
+      "commandLineArgs": "dapper-scaffolding scaffold -prj \"C:\\Users\\rfacc\\source\\repos\\DapperScaffolding\\DapperScaffoldingExample\\DapperScaffoldingExample.vbproj\" -prov SQLServer -lang VBNet -out Model -del true"
+    },
+    "MySQL - VB.Net": {
+      "commandName": "Project",
+      "commandLineArgs": "ds scaffold -prj \"C:\\Users\\rfacc\\source\\repos\\DapperScaffolding\\DapperScaffoldingExample\\DapperScaffoldingExample.vbproj\" -prov MySql -lang VBNet -out Model -del true"
+    }
+  }
+}
