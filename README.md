@@ -1,28 +1,6 @@
 ![Banner](https://i.imgur.com/UNRrpWE.png)
 
-# Dapper Scaffolding
-
-A small CLI tool to scaffold Dapper model classes from a database schema. It reads your database tables and generates simple model files (VB.NET or C#) into a target folder inside your project.
-
-License: MIT  
-GitHub: https://github.com/berto82/DapperScaffolding
-
-## Features
-- Scaffolds one model file per table using SQL queries embedded as resources.
-- Progress output via a nice console UI.
-- Supports generating VB.NET (`.vb`) or C# (`.cs`) files.
-- Reads the database connection from `appsettings.json` using the `DefaultConnection` connection string.
-
-## Installation
--  Install the package globally using the .NET CLI:
-
-```bash
-    dotnet tool install -g BertoSoftware.DapperScaffolding
-```
-## Requirements
-- .NET SDK compatible with the solution/project.
-- A project folder containing an `appsettings.json` with a valid `DefaultConnection` entry.
-- A project with Dapper and Dapper.Contrib packages installed (for the generated models to work properly).
+![GitHub License](https://img.shields.io/github/license/berto82/DapperScaffolding) ![NuGet Version](https://img.shields.io/nuget/v/BertoSoftware.DapperScaffolding) ![NuGet Downloads](https://img.shields.io/nuget/dt/BertoSoftware.DapperScaffolding) ![GitHub Release Date](https://img.shields.io/github/release-date/berto82/DapperScaffolding) ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/berto82/DapperScaffolding/master)
 
 # Dapper Scaffolding
 
@@ -41,6 +19,12 @@ This CLI tool inspects the database schema using the `DefaultConnection` string 
 - A target project containing `appsettings.json` with a `DefaultConnection` connection string.
 
 **Quick Start**
+
+-  Install the package globally using the .NET CLI:
+
+```bash
+dotnet tool install -g BertoSoftware.DapperScaffolding
+```
 
 Run the scaffold command (example):
 
@@ -81,6 +65,7 @@ If `appsettings.json` is missing or `DefaultConnection` is not present, the tool
 - After generation, include the generated folder in your project (e.g., add a `<Compile Include="Model\\**\\*.vb" />` entry in a  `.vbproj`).
 
 **Example project**
+
 See the example project configuration at [DapperScaffoldingExample/appsettings.json](DapperScaffoldingExample/appsettings.json).
 
 **Where to look in the source**

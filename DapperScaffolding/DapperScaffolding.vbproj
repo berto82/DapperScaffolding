@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -13,7 +13,7 @@
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageId>$(RootNamespace).$(AssemblyName)</PackageId>
     <AssemblyName>dapper-scaffolding</AssemblyName>
-    <Version>0.1.0-apha1</Version>
+    <Version>0.1.0-alpha2</Version>
     <PackageProjectUrl>https://www.nuget.org/packages/BertoSoftware.DapperScaffolding</PackageProjectUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageTags>dapper;scaffolding</PackageTags>
