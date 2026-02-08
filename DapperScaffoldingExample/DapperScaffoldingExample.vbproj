@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>DapperScaffoldingExample</RootNamespace>
+    <TargetFramework>net10.0</TargetFramework>
+    <Version>0.1.0-alpha1</Version>
+    <FileVersion>0.1.0</FileVersion>
+    <AssemblyVersion>0.1.0</AssemblyVersion>
+  </PropertyGroup>
+
+</Project>
