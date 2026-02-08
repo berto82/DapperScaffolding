@@ -1,5 +1,7 @@
 ![Banner](https://i.imgur.com/UNRrpWE.png)
 
+![GitHub License](https://img.shields.io/github/license/berto82/DapperScaffolding) ![NuGet Version](https://img.shields.io/nuget/v/BertoSoftware.DapperScaffolding) ![NuGet Downloads](https://img.shields.io/nuget/dt/BertoSoftware.DapperScaffolding) ![GitHub Release Date](https://img.shields.io/github/release-date/berto82/DapperScaffolding) ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/berto82/DapperScaffolding/master)
+
 # Dapper Scaffolding
 
 Scaffold Dapper-friendly model classes from an existing database schema.
