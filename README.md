@@ -17,7 +17,7 @@ GitHub: https://github.com/berto82/DapperScaffolding
 -  Install the package globally using the .NET CLI:
 
 ```bash
-    dotnet tool install -g DapperScaffolding
+    dotnet tool install -g BertoSoftware.DapperScaffolding
 ```
 ## Requirements
 - .NET SDK compatible with the solution/project.
@@ -45,7 +45,7 @@ This CLI tool inspects the database schema using the `DefaultConnection` string 
 Run the scaffold command (example):
 
 ```bash
-ds scaffold --project YourProject.csproj --provider SqlServer --language CSharp --output Model
+dapper-scaffolding scaffold --project YourProject.csproj --provider SqlServer --language CSharp --output Model --delete-folder true
 ```
 
 Options summary:

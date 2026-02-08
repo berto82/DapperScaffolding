@@ -47,7 +47,7 @@ Namespace Providers.SQLServer
                                   Dim filename As String = $"{path}\{informationSchema.TABLE_NAME}.{If(lang = "VB", "vb", "cs")}"
 
                                   Dim ass As Assembly = Assembly.GetExecutingAssembly
-                                  Dim resourceName As String = $"DapperScaffolding.MSSQL.TableToModel{lang}.sql"
+                                  Dim resourceName As String = $"BertoSoftware.MSSQL.TableToModel{lang}.sql"
                                   Dim query As String
 
                                   Using stream As Stream = ass.GetManifestResourceStream(resourceName)
