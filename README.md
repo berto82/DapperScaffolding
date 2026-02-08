@@ -8,6 +8,8 @@ Scaffold Dapper-friendly model classes from an existing database schema.
 
 This CLI tool inspects the database schema using the `DefaultConnection` string in a target project's `appsettings.json` and generates simple POCO model files (VB.NET or C#) into a specified folder inside that project.
 
+![Video Demo](https://i.imgur.com/2llzeay.gif)
+
 **Features**
 - Generate one model file per table using provider-specific scaffolding.
 - Console UI with progress and status messages.
