@@ -1,6 +1,5 @@
 ﻿Imports System.CommandLine
 Imports System.Reflection
-Imports Figgle.Fonts
 Imports Microsoft.Data.SqlClient
 Imports Microsoft.Extensions.Configuration
 Imports Spectre.Console
@@ -29,12 +28,17 @@ Module Program
     Dim sqlScaffolder As Providers.SQLServer.Scaffolding
     Dim mySqlScaffolder As Providers.MySql.Scaffolding
 
-    Sub Main(args As String())
+    Function Main(args As String()) As Integer
+        Console.OutputEncoding = System.Text.Encoding.UTF8
 
-        AnsiConsole.MarkupLine($"[gray]{FiggleFonts.Standard.Render("Dapper Scaffolding")}[/]")
+        Dim figlet As New FigletText("Dapper Scaffolding") With {.Color = Color.Gray}
+
+        AnsiConsole.Write(figlet)
         AnsiConsole.WriteLine()
-        AnsiConsole.MarkupLine($"License: [green]MIT[/] - Version: [green]{Assembly.GetExecutingAssembly.GetName().Version}[/]")
-        AnsiConsole.MarkupLine("Take a look on my GitHub: [blue]https://github.com/berto82/DapperScaffolding[/]")
+        AnsiConsole.MarkupLine($"License: [green]MIT[/] - Version: [green]{Assembly.GetExecutingAssembly.GetName().Version.ToString(3)}[/] - Build: [green]Alpha3[/]")
+        AnsiConsole.MarkupLine("[red]This is an alpha version, use it with caution and always backup your project before using it.[/]")
+        AnsiConsole.WriteLine()
+        AnsiConsole.MarkupLine("Take a look On my GitHub: [blue]https://github.com/berto82/DapperScaffolding[/]")
         AnsiConsole.WriteLine()
 
         Dim root As New RootCommand("Scaffold Dapper code from a database schema.")
@@ -43,7 +47,8 @@ Module Program
 
         Dim projectOption As New [Option](Of String)("--project", {"-prj"}) With {
             .Description = "The path to the project where the generated code will be placed.",
-            .Required = True
+            .DefaultValueFactory = Function() Environment.CurrentDirectory,
+            .Required = False
              }
 
         Dim providerOption As New [Option](Of ProviderType)("--provider", {"-prov"}) With {
@@ -78,14 +83,7 @@ Module Program
         command.Options.Add(outputOption)
         command.Options.Add(deleteFolderOption)
 
-        command.Validators.Add(Sub(result)
-                                   Dim proj = result.GetValue(projectOption)
-
-                                   If String.IsNullOrWhiteSpace(proj) Then
-                                       result.AddError("The --project option is required.")
-                                   End If
-
-                               End Sub)
+        Dim resultTask As ResultTask = Nothing
 
         command.SetAction(Sub(parseActionResult As ParseResult)
                               AnsiConsole.MarkupLine($"{Emoji.Known.Rocket} Scaffolding dapper code")
@@ -96,14 +94,27 @@ Module Program
                               Dim output As String = parseActionResult.GetValue(outputOption)
                               Dim deleteFolder As Boolean = parseActionResult.GetValue(deleteFolderOption)
 
+                              If project.EndsWith("csproj") = False AndAlso project.EndsWith("vbproj") = False Then
+                                  Dim projectFile As String = IO.Directory.GetFiles(project, "*.*proj", IO.SearchOption.TopDirectoryOnly).FirstOrDefault
+
+                                  If projectFile IsNot Nothing Then
+                                      project = projectFile
+                                  Else
+                                      AnsiConsole.MarkupLine($"{Emoji.Known.Warning}  [yellow]No project file found in the specified directory. Please provide a valid project file path.[/]")
+                                      resultTask = New ResultTask(ResultTask.TASK_PROJECTNOTFOUND, "No project file found in the specified directory.")
+                                      Return
+                                  End If
+                              End If
+
                               Dim panel As New Panel($"[yellow]Project:[/] {project}{vbCrLf}[yellow]Provider:[/] {provider}{vbCrLf}[yellow]Language:[/] {lang}{vbCrLf}[yellow]Output Folder:[/] {output}{vbCrLf}[yellow]Delete Folder:[/] {deleteFolder}") With {
                                   .Border = BoxBorder.Rounded,
-                                  .Header = New PanelHeader("Configuration parameters", Justify.Center)
+                                  .Header = New PanelHeader("Configuration parameters", Justify.Center),
+                                  .BorderStyle = New Style(Color.Yellow)
                               }
 
                               AnsiConsole.Write(panel)
 
-                              Dim resultTask As ResultTask = StartScaffolding(project, provider, lang, output, deleteFolder)
+                              resultTask = StartScaffolding(project, provider, lang, output, deleteFolder)
 
                               If resultTask.isSuccess Then
                                   AnsiConsole.MarkupLine($"{Emoji.Known.DogFace} Models generated successfully!")
@@ -120,7 +131,9 @@ Module Program
         Dim parseResult As ParseResult = root.Parse(args)
         parseResult.Invoke()
 
-    End Sub
+        Return resultTask.ReturnCode
+
+    End Function
 
     Private Function StartScaffolding(project As String, provider As ProviderType, lang As LanguageType, targetFolder As String, deleteFolder As Boolean) As ResultTask
 
@@ -134,7 +147,7 @@ Module Program
             Dim cnString As String = New ConfigurationBuilder().SetBasePath(projectPath).AddJsonFile("appsettings.json").Build.GetConnectionString("DefaultConnection")
 
             If cnString Is Nothing Then
-                Return New ResultTask With {.isSuccess = False, .ErrorMessage = "Connection string 'DefaultConnection' is not found in appsettings.json"}
+                Return New ResultTask(ResultTask.TASK_CONNECTIONSTRINGNOTFOUND, "Connection string 'DefaultConnection' is not found in appsettings.json")
             End If
 
             AnsiConsole.MarkupLine($"{Emoji.Known.Eye}  A valid connection string was found")
@@ -155,10 +168,10 @@ Module Program
 
                     Return resultTask
                 Case Else
-                    Throw New NotImplementedException("Only SQL Server provider is implemented at this time.")
+                    Return New ResultTask(ResultTask.TASK_NOTIMPLMENTED, "Only SQL Server provider is implemented at this time.")
             End Select
         Else
-            Return New ResultTask With {.isSuccess = False, .ErrorMessage = "appsetting.json configuration file is not found"}
+            Return New ResultTask(ResultTask.TASK_APPSETTINGNOTFOUND, "appsettings.json configuration file is not found")
         End If
 
     End Function
