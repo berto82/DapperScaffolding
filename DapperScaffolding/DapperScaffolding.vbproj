@@ -13,7 +13,7 @@
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageId>$(RootNamespace).$(AssemblyName)</PackageId>
     <AssemblyName>dapper-scaffolding</AssemblyName>
-    <Version>0.1.0-alpha2</Version>
+    <Version>0.1.0-alpha3</Version>
     <PackageProjectUrl>https://www.nuget.org/packages/BertoSoftware.DapperScaffolding</PackageProjectUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageTags>dapper;scaffolding</PackageTags>
@@ -59,8 +59,6 @@
 
   <ItemGroup>
     <PackageReference Include="dapper" Version="2.1.66" />
-    <PackageReference Include="Figgle" Version="0.6.5" />
-    <PackageReference Include="Figgle.Fonts" Version="0.6.5" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.4" />
     <PackageReference Include="microsoft.extensions.Configuration" Version="10.0.2" />
     <PackageReference Include="microsoft.extensions.Configuration.Json" Version="10.0.2" />

@@ -8,6 +8,8 @@ Scaffold Dapper-friendly model classes from an existing database schema.
 
 This CLI tool inspects the database schema using the `DefaultConnection` string in a target project's `appsettings.json` and generates simple POCO model files (VB.NET or C#) into a specified folder inside that project.
 
+![Video Demo](https://i.imgur.com/2llzeay.gif)
+
 **Features**
 - Generate one model file per table using provider-specific scaffolding.
 - Console UI with progress and status messages.
@@ -15,7 +17,7 @@ This CLI tool inspects the database schema using the `DefaultConnection` string 
 - Supports SQL Server and MySQL providers (others declared in the CLI are not implemented).
 
 **Requirements**
-- .NET SDK compatible with the solution (use `dotnet --version` to check).
+- .NET 10.0 SDK or later (use `dotnet --version` to check).
 - A target project containing `appsettings.json` with a `DefaultConnection` connection string.
 
 **Quick Start**
@@ -33,11 +35,11 @@ dapper-scaffolding scaffold --project YourProject.csproj --provider SqlServer --
 ```
 
 Options summary:
-- `--project` (`-prj`): Path to the target project file containing `appsettings.json`. (required)
+- `--project` (`-prj`): Path to the target project file (`.csproj` or `.vbproj`) or directory containing a project file. If a directory is provided, the tool will auto-detect the project file. (optional, defaults to current directory)
 - `--provider` (`-prov`): Database provider. Supported: `SqlServer`, `MySql`. (defaults to `SqlServer`)
 - `--language` (`-lang`): Output language. Values: `VBNet`, `CSharp`. (defaults to `CSharp`)
 - `--output` (`-out`): Output folder relative to the project directory. (defaults to `Model`)
-- `--delete-folder` (`-del`) (boolean flag): (optional) When provided, the target output folder is deleted and recreated before generation. (default: false)
+- `--delete-folder` (`-del`): When provided, the target output folder is deleted and recreated before generation. (optional, defaults to `false`)
 
 **Configuration**
 The tool reads the `DefaultConnection` string from the target project's `appsettings.json`. Example:
@@ -63,6 +65,15 @@ If `appsettings.json` is missing or `DefaultConnection` is not present, the tool
 - The tool connects to the database and enumerates tables (via INFORMATION_SCHEMA or provider-specific queries).
 - For each table, it applies an embedded SQL template and writes a `.vb` or `.cs` file named `<TableName>.vb`/`<TableName>.cs` into the chosen output folder inside the project directory.
 - After generation, include the generated folder in your project (e.g., add a `<Compile Include="Model\\**\\*.vb" />` entry in a  `.vbproj`).
+- The tool returns appropriate exit codes for scripting/CI integration:
+  - `0`: Success
+  - `1`: appsettings.json not found
+  - `2`: DefaultConnection string not found
+  - `3`: Exception occurred
+  - `4`: Project file not found
+  - `5`: Invalid arguments
+  - `6`: Provider not implemented
+  - `99`: Unexpected error
 
 **Example project**
 
