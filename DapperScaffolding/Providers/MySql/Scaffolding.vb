@@ -76,10 +76,10 @@ Namespace Providers.MySql
                     cn.Close()
                 End If
 
-                Return New ResultTask With {.isSuccess = True}
+                Return New ResultTask(ResultTask.TASK_SUCCESS)
 
             Catch ex As Exception
-                Return New ResultTask With {.isSuccess = False, .ErrorMessage = ex.Message, .Exception = ex}
+                Return New ResultTask(ResultTask.TASK_EXCEPTION, ex.Message, ex)
             End Try
         End Function
     End Class
